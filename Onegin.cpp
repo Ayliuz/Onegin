@@ -3,79 +3,52 @@
 #include <clocale>
 #include <string.h>
 #include <ctype.h>
+#include <assert.h>
 
-const char ReadName[] = "EOneg.txt";
-const char WriteName[] = "SORToneg.txt";
+const char READNAME[] = "EOneg.txt";
+const char WRITENAME[] = "SORToneg.txt";
 
-int string_counter(char* txtpointer);
+int string_counter (char* txtpointer);
 char* read_from_file (const char *name);
 int txt_file_length (FILE* txtpointer);
-int write_to_file(const char* name, char** text_table, int n_table);
-int add_to_file(const char* name, char** text_table, int n_table);
+int write_to_file (const char* name, char** text_table, int n_table);
+int add_to_file (const char* name, char** text_table, int n_table);
 char** get_text_in_table (char* text);
-int compare(const void* str1, const void* str2);
-int lexical_sorting (char** table, int n_table);
-int ends_lexical_sorting (char** table, int n_table);
-int compare_inversed(const void* str1, const void* str2);
-char* reverse_string(char* str);
+int compare (const void* str1, const void* str2);
+char** lexical_sorting (char** table, int n_table);
+char** ends_lexical_sorting (char** table, int n_table);
+int compare_inversed (const void* str1, const void* str2);
+char* reverse_string_wout_puncts (char* str);
+void free_table (char** table, int n_table);
 
 int main()
 {
-    printf("~ Text sorting \n");
-    printf("~ Zuev Ilya, 03.10.2018\n\n");
+    printf ("~ Text sorting \n");
+    printf ("~ Zuev Ilya, 03.10.2018\n\n");
 
-    setlocale(LC_CTYPE, "rus");
+    setlocale (LC_CTYPE, "rus");
 
     char* full_text = NULL;
-    if ((full_text = read_from_file(ReadName)) == NULL)
+    if ( !(full_text = read_from_file(READNAME)))
     {
-        printf("Ошибка открытия файла для чтения\n");
+        printf ("Ошибка открытия файла для чтения\n");
         return 0;
     }
 
-    int n_table = string_counter(full_text);
+    int n_table = string_counter (full_text);
 
-    char** text_table = NULL;
-    if  ((text_table = get_text_in_table(full_text)) == NULL)
-    {
-        printf("Ошибка обработки текста\n");
-        return 0;
-    }
+    char** text_table = get_text_in_table (full_text);
+    char** text_lex_sorted = lexical_sorting(text_table, n_table);
+    char** text_rythm_sorted = ends_lexical_sorting(text_table, n_table);
 
-    if (!write_to_file(WriteName, text_table, n_table))
-    {
-        printf("Ошибка записи\n");
-        return 0;
-    }
+    if ( !write_to_file(WRITENAME, text_lex_sorted, n_table)) {printf("Ошибка записи 1"); return 0;}
+    if ( !add_to_file(WRITENAME, text_rythm_sorted, n_table)) {printf("Ошибка записи 2"); return 0;}
+    if ( !add_to_file(WRITENAME, text_table, n_table))        {printf("Ошибка записи 3"); return 0;}
 
-    if (!lexical_sorting(text_table, n_table))
-    {
-        printf("Ошибка сортировки\n");
-        return 0;
-    }
+    free_table (text_table, n_table);
+    free (full_text);
 
-    if  (!add_to_file(WriteName, text_table, n_table))
-    {
-        printf("Ошибка записи\n");
-        return 0;
-    }
-
-     if (!ends_lexical_sorting(text_table, n_table))
-    {
-        printf("Ошибка сортировки\n");
-        return 0;
-    }
-
-     if (!add_to_file(WriteName, text_table, n_table))
-    {
-        printf("Ошибка записи\n");
-        return 0;
-    }
-
-    free(text_table);
-    free(full_text);
-
-    printf("Проверьте файл: SORToneg.txt \n");
+    printf ("Проверьте файл: SORToneg.txt \n");
 
     return 0;
 }
@@ -91,17 +64,17 @@ int main()
 //************************************
 
 
-int string_counter(char* txtpointer)
+int string_counter (char* txtpointer)
 {
-    if (txtpointer == NULL) return 0;
+    assert (txtpointer != NULL);
 
     int str_n = 0;
-    for (char* strptr = strchr(txtpointer, '\n'); strptr; strptr = strchr(strptr + 1, '\n'))
+    for (char* strptr = strchr (txtpointer, '\n'); strptr; strptr = strchr (strptr + 1, '\n'))
     {
         str_n++;
     }
 
-    return str_n;
+    return (str_n + 1);
 }
 
 //************************************
@@ -118,15 +91,15 @@ int string_counter(char* txtpointer)
 
 char* read_from_file (const char *name)
 {
-    FILE *txtfile = fopen(name,"r");
-    if (txtfile == NULL) return 0;
+    FILE *txtfile = fopen (name,"r");
+    if (txtfile == NULL) return NULL;
 
-    int len_text = txt_file_length(txtfile);
-    char* text_memory = (char*) calloc(len_text + 1, sizeof(*text_memory));
+    int len_text = txt_file_length (txtfile);
+    char* text_memory = (char*) calloc (len_text + 1, sizeof (*text_memory));
 
-    if (fread(text_memory, sizeof(*text_memory), len_text, txtfile) <= 0) return 0;
+    if (fread (text_memory, sizeof (*text_memory), len_text, txtfile) <= 0) return NULL;
 
-    fclose(txtfile);
+    fclose (txtfile);
     return text_memory;
 }
 
@@ -143,9 +116,9 @@ char* read_from_file (const char *name)
 
 int txt_file_length (FILE* txtpointer)
 {
-    fseek(txtpointer, 0, SEEK_END);
-    int buf_len = ftell(txtpointer);
-    rewind(txtpointer);
+    fseek (txtpointer, 0, SEEK_END);
+    int buf_len = ftell (txtpointer);
+    rewind (txtpointer);
     return buf_len;
 }
 
@@ -158,28 +131,22 @@ int txt_file_length (FILE* txtpointer)
 ///
 ///
 /// Output: 1 if writing was successful\n
-///         0 if there is an error in program or data
+///
 //************************************
 
-int write_to_file(const char* name, char** text_table, int n_table)
+int write_to_file (const char* name, char** text_table, int n_table)
 {
-    FILE *sort_txt = fopen(name, "w");
-    if (sort_txt == NULL || text_table == NULL) return 0;
+    FILE *sort_txt = fopen (name, "w");
+    assert (sort_txt && text_table);
 
-    if (n_table == 0)
+    for (int str = 0; str < n_table; ++str)
     {
-        printf("Пустой текст\n");
-        return 0;
+        if (fputs (text_table[str], sort_txt) == EOF) return 0;
+        fputc ('\n', sort_txt);
     }
+    fputc ('\n', sort_txt);
 
-    for (int str = 0; str <= n_table; ++str)
-    {
-        if (fputs(text_table[str], sort_txt) == EOF) return 0;
-        fputc('\n', sort_txt);
-    }
-    fputc('\n', sort_txt);
-
-    fclose(sort_txt);
+    fclose (sort_txt);
     return 1;
 }
 
@@ -192,29 +159,23 @@ int write_to_file(const char* name, char** text_table, int n_table)
 ///
 ///
 /// Output: 1 if writing was successful\n
-///         0 if there is an error in program or data
+///
 //************************************
 
 
-int add_to_file(const char* name, char** text_table, int n_table)
+int add_to_file (const char* name, char** text_table, int n_table)
 {
-    FILE *sort_txt = fopen(name, "a");
-    if (sort_txt == NULL || text_table == NULL) return 0;
+    FILE *sort_txt = fopen (name, "a");
+    assert (sort_txt && text_table);
 
-    if (n_table == 0)
+    for (int str = 0; str < n_table; ++str)
     {
-        printf("Пустой текст\n");
-        return 0;
+        if (fputs (text_table[str], sort_txt) == EOF) return 0;
+        fputc ('\n', sort_txt);
     }
+    fputc ('\n', sort_txt);
 
-    for (int str = 0; str <= n_table; ++str)
-    {
-        if (fputs(text_table[str], sort_txt) == EOF) return 0;
-        fputc('\n', sort_txt);
-    }
-    fputc('\n', sort_txt);
-
-    fclose(sort_txt);
+    fclose (sort_txt);
     return 1;
 }
 
@@ -229,13 +190,13 @@ int add_to_file(const char* name, char** text_table, int n_table)
 
 char** get_text_in_table (char* text)
 {
-    if (text == NULL) return 0;
+    assert(text);
 
-    char* *table= (char**) calloc(string_counter(text) + 1, sizeof(*table));
+    char* *table= (char**) calloc (string_counter (text) + 1, sizeof (*table));
     table[0] = text;
 
     int index = 1;
-    for (char* strptr = strchr(text, '\n'); strptr; strptr = strchr(strptr + 1, '\n'))
+    for (char* strptr = strchr (text, '\n'); strptr; strptr = strchr (strptr + 1, '\n'))
     {
         *strptr = '\0';
         table[index++] = strptr + 1;
@@ -246,25 +207,31 @@ char** get_text_in_table (char* text)
 }
 
 //************************************
-/// Sorts a number of strings in the alphabet order
+/// Sorts a number of strings in the alphabet order and puts them in a new array
 ///
 /// Parameters: [in] char* *table - a pointer to an array with string pointers\n
 ///             [in] int n_table - a length of table[] array\n
 ///
 ///
-/// Output: 1 if sorting was successful\n
-///         0 if there is an error in program or data
+/// Output: char** - pointer to the array of string pointers
 ///
 //************************************
 
 
-int lexical_sorting (char** table, int n_table)
+char** lexical_sorting (char** table, int n_table)
 {
-    if (table == NULL) return 0;
+    assert(table);
 
-    qsort(table, n_table + 1, sizeof(*table), compare);
+    char** table_lex_sorted = (char**) calloc (n_table + 1, sizeof (*table));
+    for (int i = 0; i < n_table; ++i)
+    {
+        table_lex_sorted[i] = table [i];
+    }
 
-    return 1;
+    qsort (table_lex_sorted, n_table, sizeof (*table), compare);
+    table_lex_sorted[n_table] = NULL;
+
+    return table_lex_sorted;
 }
 
 //************************************
@@ -280,35 +247,41 @@ int lexical_sorting (char** table, int n_table)
 ///
 //************************************
 
-int compare(const void* str1, const void* str2)
+int compare (const void* str1, const void* str2)
 {
 
-    return strcmp(*(char**)str1, *(char**)str2);
+    return strcmp (*(char**)str1, *(char**)str2);
 }
 
 //************************************
-/// Sorts a number of strings in the alphabet order from their ends
+/// Sorts a number of strings in the alphabet order from their ends and puts them in a new array
 ///
 /// Parameters: [in] char* *table - a pointer to an array with string pointers\n
 ///             [in] int n_table - a length of table[] array\n
 ///
 ///
-/// Output: 1 if sorting was successful\n
-///         0 if there is an error in program or data
+/// Output: char** - pointer to the array of string pointers
 ///
 //************************************
 
-int ends_lexical_sorting (char** table, int n_table)
+char** ends_lexical_sorting (char** table, int n_table)
 {
-    if (table == NULL) return 0;
+    assert(table);
 
-    qsort(table, n_table + 1, sizeof(*table), compare_inversed);
+    char** table_rythm_sorted = (char**) calloc (n_table + 1, sizeof (*table));
+    for (int i = 0; i < n_table; ++i)
+    {
+        table_rythm_sorted[i] = table [i];
+    }
 
-    return 1;
+    qsort (table_rythm_sorted, n_table, sizeof (*table), compare_inversed);
+    table_rythm_sorted[n_table] = NULL;
+
+    return table_rythm_sorted;
 }
 
 //************************************
-/// Compares two strings
+/// Compares two strings from their ends, ignoring punctuation
 ///
 /// Parameters: [in] const void* str1 - a pointer to the first string
 ///             [in] const void* str2 - a pointer to the second string\n
@@ -320,13 +293,20 @@ int ends_lexical_sorting (char** table, int n_table)
 ///
 //************************************
 
-int compare_inversed(const void* str1, const void* str2)
+int compare_inversed (const void* str1, const void* str2)
 {
-    return strcmp(reverse_string(*(char**) str1), reverse_string(*(char**) str2));
+    char* buf1 = reverse_string_wout_puncts (*(char**) str1);
+    char* buf2 = reverse_string_wout_puncts (*(char**) str2);
+
+    int CompareResult = strcmp (buf1, buf2);
+    free (buf1);
+    free (buf2);
+
+    return CompareResult;
 }
 
 //************************************
-/// Inverts a string, making new string
+/// Inverts a string, making new string and ignoring punctuation in the end of strings
 ///
 /// Parameters: [in] char* str - a pointer to the string\n
 ///
@@ -334,16 +314,38 @@ int compare_inversed(const void* str1, const void* str2)
 ///
 //************************************
 
-char* reverse_string(char* str)
+char* reverse_string_wout_puncts (char* str)
 {
-    int len = strlen(str);
-    char* buf = (char*)  calloc(len + 1, sizeof(*buf));
+    assert (str);
+
+    int len = strlen (str);
+    char* buf = (char*)  calloc (len + 1, sizeof (*buf));
 
     int buf_i = 0;
     for (int ch = len-1; ch >= 0; ch--)
     {
-        if (!ispunct(str[ch])) buf[buf_i++] = str[ch];
+        if (!ispunct (str[ch])) buf[buf_i++] = str[ch];
     }
 
     return buf;
+}
+
+//************************************
+/// Frees text's and string pointers' memory
+///
+/// Parameters: [in] char* *table - a pointer to an array with string pointers\n
+///             [in] int n_table - a length of table[] array\n
+///
+/// Output: void
+///
+//************************************
+
+
+void free_table (char** table, int n_table)
+{
+    for (int i = 0; i < n_table; i++)
+    {
+        memset (table[i], '\0', strlen(table[i]));
+        free (table[i]);
+    }
 }
