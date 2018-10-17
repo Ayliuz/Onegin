@@ -31,7 +31,7 @@ int main()
     char* full_text = NULL;
     if ( !(full_text = read_from_file(READNAME)))
     {
-        printf ("Ошибка открытия файла для чтения\n");
+        printf ("РћС€РёР±РєР° РѕС‚РєСЂС‹С‚РёСЏ С„Р°Р№Р»Р° РґР»СЏ С‡С‚РµРЅРёСЏ\n");
         return 0;
     }
 
@@ -41,14 +41,14 @@ int main()
     char** text_lex_sorted = lexical_sorting(text_table, n_table);
     char** text_rythm_sorted = ends_lexical_sorting(text_table, n_table);
 
-    if ( !write_to_file(WRITENAME, text_lex_sorted, n_table)) {printf("Ошибка записи 1"); return 0;}
-    if ( !add_to_file(WRITENAME, text_rythm_sorted, n_table)) {printf("Ошибка записи 2"); return 0;}
-    if ( !add_to_file(WRITENAME, text_table, n_table))        {printf("Ошибка записи 3"); return 0;}
+    if ( !write_to_file(WRITENAME, text_lex_sorted, n_table)) {printf("ГЋГёГЁГЎГЄГ  Г§Г ГЇГЁГ±ГЁ 1"); return 0;}
+    if ( !add_to_file(WRITENAME, text_rythm_sorted, n_table)) {printf("ГЋГёГЁГЎГЄГ  Г§Г ГЇГЁГ±ГЁ 2"); return 0;}
+    if ( !add_to_file(WRITENAME, text_table, n_table))        {printf("ГЋГёГЁГЎГЄГ  Г§Г ГЇГЁГ±ГЁ 3"); return 0;}
 
     free_table (text_table, n_table);
     free (full_text);
 
-    printf ("Проверьте файл: SORToneg.txt \n");
+    printf ("ГЏГ°Г®ГўГҐГ°ГјГІГҐ ГґГ Г©Г«: SORToneg.txt \n");
 
     return 0;
 }
