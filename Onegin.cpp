@@ -14,10 +14,10 @@ int txt_file_length (FILE* txtpointer);
 int write_to_file (const char* name, char** text_table, int n_table);
 int add_to_file (const char* name, char** text_table, int n_table);
 char** get_text_in_table (char* text);
-int compare (const void* str1, const void* str2);
+int comp_str (const void* str1, const void* str2);
 char** lexical_sorting (char** table, int n_table);
 char** ends_lexical_sorting (char** table, int n_table);
-int compare_inversed (const void* str1, const void* str2);
+int comp_str_inversed (const void* str1, const void* str2);
 char* reverse_string_wout_puncts (char* str);
 void free_table (char** table, int n_table);
 
@@ -228,7 +228,7 @@ char** lexical_sorting (char** table, int n_table)
         table_lex_sorted[i] = table [i];
     }
 
-    qsort (table_lex_sorted, n_table, sizeof (*table), compare);
+    qsort (table_lex_sorted, n_table, sizeof (*table), comp_str);
     table_lex_sorted[n_table] = NULL;
 
     return table_lex_sorted;
@@ -247,10 +247,10 @@ char** lexical_sorting (char** table, int n_table)
 ///
 //************************************
 
-int compare (const void* str1, const void* str2)
+int comp_str (const void* str1, const void* str2)
 {
 
-    return strcmp (*(char**)str1, *(char**)str2);
+    return strcmp ( *(char**)str1, *(char**)str2);
 }
 
 //************************************
@@ -274,14 +274,14 @@ char** ends_lexical_sorting (char** table, int n_table)
         table_rythm_sorted[i] = table [i];
     }
 
-    qsort (table_rythm_sorted, n_table, sizeof (*table), compare_inversed);
+    qsort (table_rythm_sorted, n_table, sizeof (*table), comp_str_inversed);
     table_rythm_sorted[n_table] = NULL;
 
     return table_rythm_sorted;
 }
 
 //************************************
-/// Compares two strings from their ends, ignoring punctuation
+/// Compares two strings from their ends, ignoring punctuation in the end
 ///
 /// Parameters: [in] const void* str1 - a pointer to the first string
 ///             [in] const void* str2 - a pointer to the second string\n
@@ -293,17 +293,43 @@ char** ends_lexical_sorting (char** table, int n_table)
 ///
 //************************************
 
-int compare_inversed (const void* str1, const void* str2)
+int comp_str_inversed (const void* str1, const void* str2)
 {
-    char* buf1 = reverse_string_wout_puncts (*(char**) str1);
-    char* buf2 = reverse_string_wout_puncts (*(char**) str2);
+    char* cur1 = *(char**)str1;
+    char* cur2 = *(char**)str2;
 
-    int CompareResult = strcmp (buf1, buf2);
-    free (buf1);
-    free (buf2);
+    int len1 = 0;
+    while ( *cur1 != '\0')
+    {
+        cur1 = *(char**)str1 + (++len1) * sizeof(*cur1);
+    }
 
-    return CompareResult;
+    while ( (*cur1 < 'а') || (*cur1 > 'я'))
+    {
+            cur1 -= sizeof(*cur1);
+    }
+
+    int len2 = 0;
+    while ( *cur2 != '\0')
+    {
+        cur2 = *(char**)str2 + (++len2) * sizeof(*cur2);
+    }
+    while ( (*cur2 < 'а') || (*cur2 > 'я'))
+    {
+            cur2 -= sizeof(*cur2);
+    }
+
+    while( (cur1 > (*(char**) str1)) && (cur2 > (*(char**) str2)) && (*cur1 == *cur2))
+    {
+        cur1 -= sizeof(*cur1);
+        cur2 -= sizeof(*cur2);
+    }
+
+    if ( (*cur1) >  (*cur2))  return 1;
+    if ( (*cur1) == (*cur2))  return 0;
+    if ( (*cur1) <  (*cur2))  return -1;
 }
+
 
 //************************************
 /// Inverts a string, making new string and ignoring punctuation in the end of strings
@@ -314,7 +340,7 @@ int compare_inversed (const void* str1, const void* str2)
 ///
 //************************************
 
-char* reverse_string_wout_puncts (char* str)
+char* reverse_string_wout_puncts (char* str) //полезная функция, но уже не используется в программе
 {
     assert (str);
 
@@ -324,7 +350,7 @@ char* reverse_string_wout_puncts (char* str)
     int buf_i = 0;
     for (int ch = len-1; ch >= 0; ch--)
     {
-        if (!ispunct (str[ch])) buf[buf_i++] = str[ch];
+        if ( !ispunct (str[ch])) buf[buf_i++] = str[ch];
     }
 
     return buf;
