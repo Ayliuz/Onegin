@@ -41,14 +41,14 @@ int main()
     char** text_lex_sorted = lexical_sorting(text_table, n_table);
     char** text_rythm_sorted = ends_lexical_sorting(text_table, n_table);
 
-    if ( !write_to_file(WRITENAME, text_lex_sorted, n_table)) {printf("Îøèáêà çàïèñè 1"); return 0;}
-    if ( !add_to_file(WRITENAME, text_rythm_sorted, n_table)) {printf("Îøèáêà çàïèñè 2"); return 0;}
-    if ( !add_to_file(WRITENAME, text_table, n_table))        {printf("Îøèáêà çàïèñè 3"); return 0;}
+    if ( !write_to_file(WRITENAME, text_lex_sorted, n_table)) {printf("Ошибка записи 1"); return 0;}
+    if ( !add_to_file(WRITENAME, text_rythm_sorted, n_table)) {printf("Ошибка записи 2"); return 0;}
+    if ( !add_to_file(WRITENAME, text_table, n_table))        {printf("Ошибка записи 3"); return 0;}
 
     free_table (text_table, n_table);
     free (full_text);
 
-    printf ("Ïðîâåðüòå ôàéë: SORToneg.txt \n");
+    printf ("Проверьте файл: SORToneg.txt \n");
 
     return 0;
 }
