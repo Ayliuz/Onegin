@@ -1,3 +1,4 @@
+#include "D:\TX\TXlib.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <clocale>
@@ -8,21 +9,25 @@
 const char READNAME[] = "EOneg.txt";
 const char WRITENAME[] = "SORToneg.txt";
 
-int string_counter (char* txtpointer);
-char* read_from_file (const char *name);
-int txt_file_length (FILE* txtpointer);
-int write_to_file (const char* name, char** text_table, int n_table);
-int add_to_file (const char* name, char** text_table, int n_table);
-char** get_text_in_table (char* text);
-int comp_str (const void* str1, const void* str2);
-char** lexical_sorting (char** table, int n_table);
-char** ends_lexical_sorting (char** table, int n_table);
-int comp_str_inversed (const void* str1, const void* str2);
-char* reverse_string_wout_puncts (char* str);
-void free_table (char** table, int n_table);
+int string_counter (char*);
+char* read_from_file (const char *);
+int txt_file_length (FILE*);
+int write_to_file (const char*, char**, int);
+int add_to_file (const char*, char**, int);
+char** get_text_in_table (char*);
+int comp_str (const void*, const void*);
+char** lexical_sorting (char**, int);
+char** ends_lexical_sorting (char**, int);
+int strlen_end_seek_wout_puncts_russian(char**);
+int comp_str_inversed (const void*, const void*);
+char* reverse_string_wout_puncts (char*);
+void free_table (char**, int);
 
 int main()
 {
+
+    $y;
+
     printf ("~ Text sorting \n");
     printf ("~ Zuev Ilya, 03.10.2018\n\n");
 
@@ -281,6 +286,32 @@ char** ends_lexical_sorting (char** table, int n_table)
 }
 
 //************************************
+/// Counts length of string and points to the end of the string excluding punctuation
+///
+/// Parameters: [in] char** str_ptr - a pointer to the pointer to the beginning of string
+///
+/// Output: int len - length of the string, change str_ptr to the end of the string excluding punctuation
+///
+//************************************
+
+int strlen_end_seek_wout_puncts_russian(char** str_ptr)
+{
+    int len = 0;
+    char* StrBegin = *str_ptr;
+    while ( **str_ptr != '\0')
+    {
+        *str_ptr = StrBegin + (++len) * sizeof(**str_ptr);
+    }
+
+    while ( (**str_ptr < 'à') || (**str_ptr > 'ÿ'))
+    {
+            *str_ptr -= sizeof(**str_ptr);
+    }
+
+    return len;
+}
+
+//************************************
 /// Compares two strings from their ends, ignoring punctuation in the end
 ///
 /// Parameters: [in] const void* str1 - a pointer to the first string
@@ -298,26 +329,9 @@ int comp_str_inversed (const void* str1, const void* str2)
     char* cur1 = *(char**)str1;
     char* cur2 = *(char**)str2;
 
-    int len1 = 0;
-    while ( *cur1 != '\0')
-    {
-        cur1 = *(char**)str1 + (++len1) * sizeof(*cur1);
-    }
+    int len1 = strlen_end_seek_wout_puncts_russian(&cur1);
 
-    while ( (*cur1 < 'à') || (*cur1 > 'ÿ'))
-    {
-            cur1 -= sizeof(*cur1);
-    }
-
-    int len2 = 0;
-    while ( *cur2 != '\0')
-    {
-        cur2 = *(char**)str2 + (++len2) * sizeof(*cur2);
-    }
-    while ( (*cur2 < 'à') || (*cur2 > 'ÿ'))
-    {
-            cur2 -= sizeof(*cur2);
-    }
+    int len2 = strlen_end_seek_wout_puncts_russian(&cur2);
 
     while( (cur1 > (*(char**) str1)) && (cur2 > (*(char**) str2)) && (*cur1 == *cur2))
     {
@@ -329,6 +343,7 @@ int comp_str_inversed (const void* str1, const void* str2)
     if ( (*cur1) == (*cur2))  return 0;
     if ( (*cur1) <  (*cur2))  return -1;
 }
+
 
 
 //************************************
