@@ -1,0 +1,222 @@
+
+--------------------------------------------------
+TXLib предупреждает:
+
+Программа: C:\Users\zue26\Documents\GitHub\Onegin\comp.exe,
+
+ВНЕЗАПНО: Нарушение доступа к памяти.
+
+#1: Исключение EXCEPTION_ACCESS_VIOLATION (0xC0000005) при выполнении кода по адресу 0x74A5949C в функции strlen(). Попытка прочесть данные по адресу 0xF0E1E5CD. Спасибо _txVectoredExceptionHandler(), что сообщил. Люблю его <3
+
+#1: TXLib [Ver: 00173a, Rev: 105, Date: 2018-06-12 00:00:00 +0300], Instance: 0x004F52C0 (32-bit), Flags: Cmdre0, Thread: 0x3338 (Main). 
+
+--------------------------------------------------
+Стек вызовов:
+
+# 0 0x74A5949C in C:\WINDOWS\System32\msvcrt.dll: strlen()
+# 1 0x0041A200 in C:\Users\zue26\Documents\GitHub\Onegin\comp.exe: comp_str_inversed()
+# 2 0x0041A2EA in C:\Users\zue26\Documents\GitHub\Onegin\comp.exe: main()
+
+--------------------------------------------------
+Developed with:
+
+The Dumb Artist Library (TX Library)
+TXLib [Ver: 00173a, Rev: 105, Date: 2018-06-12 00:00:00 +0300]
+Copyright (C) Ded (Ilya Dedinsky, http://txlib.ru) <mail@txlib.ru>
+See license on: http://txlib.ru
+
+TXLib file:	D:\TX\TXlib.h
+Compiled:	Oct 19 2018 01:30:39, GNU g++ 5.1.0, std=199711L, MinGW Runtime 3.20, 32-bit, Debug
+Started:	Oct 19 2018 01:30:41
+
+Run file:	C:\Users\zue26\Documents\GitHub\Onegin\comp.exe
+Directory:	C:\Users\zue26\Documents\GitHub\Onegin
+
+--------------------------------------------------
+
+--------------------------------------------------
+TXLib соболезнует...
+
+Программа: C:\Users\zue26\Documents\GitHub\Onegin\comp.exe,
+
+ВНЕЗАПНО: signal (11, 0x00): SIGSEGV: Доступ по неверному указателю. Ставьте ассерты! 
+
+Нарушение доступа к памяти.
+
+#1: Исключение EXCEPTION_ACCESS_VIOLATION (0xC0000005) при выполнении кода по адресу 0x74A5949C в функции strlen(). Попытка прочесть данные по адресу 0xF0E1E5CD. Спасибо _txVectoredExceptionHandler(), что сообщил. Люблю его <3
+
+С помощью функции signal() вы можете сами обработать эту ошибку.
+
+#2: TXLib [Ver: 00173a, Rev: 105, Date: 2018-06-12 00:00:00 +0300], Instance: 0x004F52C0 (32-bit), Flags: Cmdre0, Thread: 0x3338 (Main). 
+
+--------------------------------------------------
+Стек вызовов:
+
+# 0 0x74A5949C in C:\WINDOWS\System32\msvcrt.dll: strlen()
+# 1 0x0041A200 in C:\Users\zue26\Documents\GitHub\Onegin\comp.exe: comp_str_inversed()
+# 2 0x0041A2EA in C:\Users\zue26\Documents\GitHub\Onegin\comp.exe: main()
+
+--------------------------------------------------
+Developed with:
+
+The Dumb Artist Library (TX Library)
+TXLib [Ver: 00173a, Rev: 105, Date: 2018-06-12 00:00:00 +0300]
+Copyright (C) Ded (Ilya Dedinsky, http://txlib.ru) <mail@txlib.ru>
+See license on: http://txlib.ru
+
+TXLib file:	D:\TX\TXlib.h
+Compiled:	Oct 19 2018 01:30:39, GNU g++ 5.1.0, std=199711L, MinGW Runtime 3.20, 32-bit, Debug
+Started:	Oct 19 2018 01:30:41
+
+Run file:	C:\Users\zue26\Documents\GitHub\Onegin\comp.exe
+Directory:	C:\Users\zue26\Documents\GitHub\Onegin
+
+--------------------------------------------------
+
+--------------------------------------------------
+TXLib предупреждает:
+
+Программа: C:\Users\zue26\Documents\GitHub\Onegin\comp.exe,
+
+ВНЕЗАПНО: Нарушение доступа к памяти.
+
+#1: Исключение EXCEPTION_ACCESS_VIOLATION (0xC0000005) при выполнении кода по адресу 0x74A5949C в функции strlen(). Попытка прочесть данные по адресу 0xF0E1E5CD. Спасибо _txVectoredExceptionHandler(), что сообщил. Люблю его <3
+
+#1: TXLib [Ver: 00173a, Rev: 105, Date: 2018-06-12 00:00:00 +0300], Instance: 0x004F52C0 (32-bit), Flags: Cmdre0, Thread: 0x2178 (Main). 
+
+--------------------------------------------------
+Стек вызовов:
+
+# 0 0x74A5949C in C:\WINDOWS\System32\msvcrt.dll: strlen()
+# 1 0x0041A200 in C:\Users\zue26\Documents\GitHub\Onegin\comp.exe: comp_str_inversed()
+# 2 0x0041A2EA in C:\Users\zue26\Documents\GitHub\Onegin\comp.exe: main()
+
+--------------------------------------------------
+Developed with:
+
+The Dumb Artist Library (TX Library)
+TXLib [Ver: 00173a, Rev: 105, Date: 2018-06-12 00:00:00 +0300]
+Copyright (C) Ded (Ilya Dedinsky, http://txlib.ru) <mail@txlib.ru>
+See license on: http://txlib.ru
+
+TXLib file:	D:\TX\TXlib.h
+Compiled:	Oct 19 2018 01:34:06, GNU g++ 5.1.0, std=199711L, MinGW Runtime 3.20, 32-bit, Debug
+Started:	Oct 19 2018 01:34:09
+
+Run file:	C:\Users\zue26\Documents\GitHub\Onegin\comp.exe
+Directory:	C:\Users\zue26\Documents\GitHub\Onegin
+
+--------------------------------------------------
+
+--------------------------------------------------
+TXLib соболезнует...
+
+Программа: C:\Users\zue26\Documents\GitHub\Onegin\comp.exe,
+
+ВНЕЗАПНО: signal (11, 0x00): SIGSEGV: Доступ по неверному указателю. Ставьте ассерты! 
+
+Нарушение доступа к памяти.
+
+#1: Исключение EXCEPTION_ACCESS_VIOLATION (0xC0000005) при выполнении кода по адресу 0x74A5949C в функции strlen(). Попытка прочесть данные по адресу 0xF0E1E5CD. Спасибо _txVectoredExceptionHandler(), что сообщил. Люблю его <3
+
+С помощью функции signal() вы можете сами обработать эту ошибку.
+
+#2: TXLib [Ver: 00173a, Rev: 105, Date: 2018-06-12 00:00:00 +0300], Instance: 0x004F52C0 (32-bit), Flags: Cmdre0, Thread: 0x2178 (Main). 
+
+--------------------------------------------------
+Стек вызовов:
+
+# 0 0x74A5949C in C:\WINDOWS\System32\msvcrt.dll: strlen()
+# 1 0x0041A200 in C:\Users\zue26\Documents\GitHub\Onegin\comp.exe: comp_str_inversed()
+# 2 0x0041A2EA in C:\Users\zue26\Documents\GitHub\Onegin\comp.exe: main()
+
+--------------------------------------------------
+Developed with:
+
+The Dumb Artist Library (TX Library)
+TXLib [Ver: 00173a, Rev: 105, Date: 2018-06-12 00:00:00 +0300]
+Copyright (C) Ded (Ilya Dedinsky, http://txlib.ru) <mail@txlib.ru>
+See license on: http://txlib.ru
+
+TXLib file:	D:\TX\TXlib.h
+Compiled:	Oct 19 2018 01:34:06, GNU g++ 5.1.0, std=199711L, MinGW Runtime 3.20, 32-bit, Debug
+Started:	Oct 19 2018 01:34:09
+
+Run file:	C:\Users\zue26\Documents\GitHub\Onegin\comp.exe
+Directory:	C:\Users\zue26\Documents\GitHub\Onegin
+
+--------------------------------------------------
+
+--------------------------------------------------
+TXLib предупреждает:
+
+Программа: C:\Users\zue26\Documents\GitHub\Onegin\comp.exe,
+
+ВНЕЗАПНО: Нарушение доступа к памяти.
+
+#1: Исключение EXCEPTION_ACCESS_VIOLATION (0xC0000005) при выполнении кода по адресу 0x74A5949C в функции strlen(). Попытка прочесть данные по адресу 0xF0E1E5CD. Спасибо _txVectoredExceptionHandler(), что сообщил. Люблю его <3
+
+#1: TXLib [Ver: 00173a, Rev: 105, Date: 2018-06-12 00:00:00 +0300], Instance: 0x004F52C0 (32-bit), Flags: Cmdre0, Thread: 0x1874 (Main). 
+
+--------------------------------------------------
+Стек вызовов:
+
+# 0 0x74A5949C in C:\WINDOWS\System32\msvcrt.dll: strlen()
+# 1 0x0041A200 in C:\Users\zue26\Documents\GitHub\Onegin\comp.exe: comp_str_inversed()
+# 2 0x0041A2EA in C:\Users\zue26\Documents\GitHub\Onegin\comp.exe: main()
+
+--------------------------------------------------
+Developed with:
+
+The Dumb Artist Library (TX Library)
+TXLib [Ver: 00173a, Rev: 105, Date: 2018-06-12 00:00:00 +0300]
+Copyright (C) Ded (Ilya Dedinsky, http://txlib.ru) <mail@txlib.ru>
+See license on: http://txlib.ru
+
+TXLib file:	D:\TX\TXlib.h
+Compiled:	Oct 19 2018 01:36:11, GNU g++ 5.1.0, std=199711L, MinGW Runtime 3.20, 32-bit, Debug
+Started:	Oct 19 2018 01:36:13
+
+Run file:	C:\Users\zue26\Documents\GitHub\Onegin\comp.exe
+Directory:	C:\Users\zue26\Documents\GitHub\Onegin
+
+--------------------------------------------------
+
+--------------------------------------------------
+TXLib соболезнует...
+
+Программа: C:\Users\zue26\Documents\GitHub\Onegin\comp.exe,
+
+ВНЕЗАПНО: signal (11, 0x00): SIGSEGV: Доступ по неверному указателю. Ставьте ассерты! 
+
+Нарушение доступа к памяти.
+
+#1: Исключение EXCEPTION_ACCESS_VIOLATION (0xC0000005) при выполнении кода по адресу 0x74A5949C в функции strlen(). Попытка прочесть данные по адресу 0xF0E1E5CD. Спасибо _txVectoredExceptionHandler(), что сообщил. Люблю его <3
+
+С помощью функции signal() вы можете сами обработать эту ошибку.
+
+#2: TXLib [Ver: 00173a, Rev: 105, Date: 2018-06-12 00:00:00 +0300], Instance: 0x004F52C0 (32-bit), Flags: Cmdre0, Thread: 0x1874 (Main). 
+
+--------------------------------------------------
+Стек вызовов:
+
+# 0 0x74A5949C in C:\WINDOWS\System32\msvcrt.dll: strlen()
+# 1 0x0041A200 in C:\Users\zue26\Documents\GitHub\Onegin\comp.exe: comp_str_inversed()
+# 2 0x0041A2EA in C:\Users\zue26\Documents\GitHub\Onegin\comp.exe: main()
+
+--------------------------------------------------
+Developed with:
+
+The Dumb Artist Library (TX Library)
+TXLib [Ver: 00173a, Rev: 105, Date: 2018-06-12 00:00:00 +0300]
+Copyright (C) Ded (Ilya Dedinsky, http://txlib.ru) <mail@txlib.ru>
+See license on: http://txlib.ru
+
+TXLib file:	D:\TX\TXlib.h
+Compiled:	Oct 19 2018 01:36:11, GNU g++ 5.1.0, std=199711L, MinGW Runtime 3.20, 32-bit, Debug
+Started:	Oct 19 2018 01:36:13
+
+Run file:	C:\Users\zue26\Documents\GitHub\Onegin\comp.exe
+Directory:	C:\Users\zue26\Documents\GitHub\Onegin
+
+--------------------------------------------------

@@ -1,3 +1,5 @@
+//email isalpha 'ÿ'
+
 #include "D:\TX\TXlib.h"
 #include <stdio.h>
 #include <stdlib.h>
@@ -18,7 +20,7 @@ char** get_text_in_table (char*);
 int comp_str (const void*, const void*);
 char** lexical_sorting (char**, int);
 char** ends_lexical_sorting (char**, int);
-int strlen_end_seek_wout_puncts_russian(char**);
+char* end_seek_wout_puncts_russian(char*);
 int comp_str_inversed (const void*, const void*);
 char* reverse_string_wout_puncts (char*);
 void free_table (char**, int);
@@ -286,29 +288,25 @@ char** ends_lexical_sorting (char** table, int n_table)
 }
 
 //************************************
-/// Counts length of string and points to the end of the string excluding punctuation
+/// Get pointer to the end of the string excluding punctuation
 ///
-/// Parameters: [in] char** str_ptr - a pointer to the pointer to the beginning of string
+/// Parameters: [in] const char* StrBegin - a pointer  to the beginning of string
 ///
-/// Output: int len - length of the string, change str_ptr to the end of the string excluding punctuation
+/// Output: char* - pointer to the end of the string excluding punctuation
 ///
 //************************************
 
-int strlen_end_seek_wout_puncts_russian(char** str_ptr)
+char* end_seek_wout_puncts_russian(char* StrBegin)
 {
-    int len = 0;
-    char* StrBegin = *str_ptr;
-    while ( **str_ptr != '\0')
+    char* str_ptr = StrBegin + strlen(StrBegin);
+
+    while ( (*str_ptr < 'à') || (*str_ptr > 'ÿ'))
+    //while( !isalpha(*str_ptr))
     {
-        *str_ptr = StrBegin + (++len) * sizeof(**str_ptr);
+            str_ptr -= sizeof(*str_ptr);
     }
 
-    while ( (**str_ptr < 'à') || (**str_ptr > 'ÿ'))
-    {
-            *str_ptr -= sizeof(**str_ptr);
-    }
-
-    return len;
+    return str_ptr;
 }
 
 //************************************
@@ -326,12 +324,8 @@ int strlen_end_seek_wout_puncts_russian(char** str_ptr)
 
 int comp_str_inversed (const void* str1, const void* str2)
 {
-    char* cur1 = *(char**)str1;
-    char* cur2 = *(char**)str2;
-
-    int len1 = strlen_end_seek_wout_puncts_russian(&cur1);
-
-    int len2 = strlen_end_seek_wout_puncts_russian(&cur2);
+    char* cur1 = end_seek_wout_puncts_russian(*(char**)str1);
+    char* cur2 = end_seek_wout_puncts_russian(*(char**)str2);
 
     while( (cur1 > (*(char**) str1)) && (cur2 > (*(char**) str2)) && (*cur1 == *cur2))
     {
