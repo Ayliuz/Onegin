@@ -1,5 +1,3 @@
-//email isalpha 'ÿ'
-
 #include "D:\TX\TXlib.h"
 #include <stdio.h>
 #include <stdlib.h>
@@ -73,7 +71,7 @@ int main()
 
 int string_counter (char* txtpointer)
 {
-    assert (txtpointer != NULL);
+    assert (txtpointer);
 
     int str_n = 0;
     for (char* strptr = strchr (txtpointer, '\n'); strptr; strptr = strchr (strptr + 1, '\n'))
@@ -123,6 +121,7 @@ char* read_from_file (const char *name)
 
 int txt_file_length (FILE* txtpointer)
 {
+    assert(txtpointer);
     fseek (txtpointer, 0, SEEK_END);
     int buf_len = ftell (txtpointer);
     rewind (txtpointer);
